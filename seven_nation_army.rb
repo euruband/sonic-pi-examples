@@ -5,7 +5,10 @@ half          = 0.5*tick
 quart         = 0.25*tick
 eigth         = 0.125*tick
 length        = 8*tick
-pointed_quart = quart + eigth
+
+define :dotted do |note|
+  1.5*note
+end
 
 define :random_synth do
   [:mod_tri, :prophet, :pretty_bell].sample
@@ -39,17 +42,16 @@ define :bass_guitar do
   #
 
   play :e3
-  sleep half
-  sleep quart # corresponds to "pointed" note
+  sleep dotted(half)
 
   play :e3
   sleep quart
 
   play :g3, release: 0.4
-  sleep pointed_quart
+  sleep dotted(quart)
 
   play :e3, release: 0.4
-  sleep pointed_quart
+  sleep dotted(quart)
 
   play :d3, release: 0.4
   sleep quart
