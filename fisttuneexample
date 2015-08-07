@@ -1,0 +1,55 @@
+
+#just play around with commenting things out/ removing them and adding them again 
+#my version of this can be found here: https://soundcloud.com/langziehohr/first
+
+live_loop :flibble do
+
+play 60, amp: 0.1
+sleep 0.25
+play 65, amp: 0.2
+sleep 0.5
+play 60, amp: 0.1
+sleep 0.25
+play 63, amp: 0.2
+sleep 0.5
+play 60, amp: 0.1
+sleep 0.25
+play 62, amp: 0.2
+sleep 0.5
+play 60, amp: 0.1
+sleep 0.25
+play 63, amp: 0.2
+sleep 0.5
+
+
+
+end
+
+live_loop :mau do 
+# sample :bd_haus, rate: 1, amp: 0.4
+  sleep 0.75
+end
+
+live_loop :mia do
+# sample :bd_haus, rate: 0.8, amp: 0.4
+  sleep 1
+end 
+
+
+live_loop :miez do
+#sample :drum_cymbal_closed, amp: 0.1
+sleep 0.25
+
+end
+
+live_loop :mauz do
+# sample :drum_cymbal_pedal, amp: 0.2
+  sleep 1.5
+
+end 
+
+live_loop :mauz2 do
+#  sample :bd_fat
+sleep 3
+end
+
