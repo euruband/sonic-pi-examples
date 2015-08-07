@@ -1,0 +1,60 @@
+## I’ve used some subway sounds I recorded in Berlin for this. If you want to use them, ping me, I can upload them! Sound can be found here: https://soundcloud.com/langziehohr/bln
+
+
+#sample "/Users/ani/Desktop/sonic_pi/ersatzverkehr.wav", release: 4, attack: 1
+#sample "/Users/ani/Desktop/sonic_pi/verstaendnis.wav", release: 4, attack: 1
+#sample "/Users/ani/Desktop/sonic_pi/bvg.wav", release: 4, attack: 1
+
+
+
+live_loop :snap do
+#sample :perc_snap, amp: rrand(0.1, 0.3)
+#sample :bd_haus, rate: 0.8, amp: 0.8, cutoff: rrand(50, 120)
+#sample :bd_haus, rate: 0.8, amp: rrand(0.1, 0.6) 
+#sample :bass_hit_c, amp: 0.3
+sleep 1
+end
+
+live_loop :fibble do
+use_synth :hoover
+#play :bs4, amp: 0.1, release: 2, attack: 2
+#play :e4, amp: 0.08, release: 2, attack: 2
+sleep 0.5
+
+end
+
+live_loop :hia do
+
+#sample :bd_haus, rate: 1, amp: rrand(0.3,0.8), cutoff: rrand(50, 80), pan: rrand(1, -1)
+  sleep 0.125
+#sample :bd_haus, rate: 1, amp: rrand(0.3,0.8), cutoff: rrand(50, 120), pan: rrand(1, -1)
+sleep 0.125
+end 
+ 
+
+live_loop :haus do
+#sample :bd_haus, rate: 1, amp: 0.8, rate: 0.5, cutoff: rrand(50, 100)
+  sleep 0.75
+#sample :perc_snap, amp: rrand(0.01, 0.1) 
+ sleep 0.375
+end
+
+live_loop :mia1 do
+#sample :bd_haus, rate: 0.8, amp: 1, cutoff: rrand(40, 80)
+#sample :drum_cymbal_closed, amp: rrand(0.01, 0.1)
+#sample :elec_flip, rate: 0.5, amp: rrand(0.1, 2)
+sleep 0.25
+end
+
+live_loop :mauz do
+#sample :drum_cymbal_pedal, amp: 0.5
+  sleep 1.5
+end 
+
+live_loop :mauz2 do
+#  sample :bd_fat
+sleep 3
+#sample :bass_hit_c, amp: 1
+sleep 1
+end
+
