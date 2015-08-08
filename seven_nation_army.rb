@@ -1,4 +1,5 @@
 # based on: The White Stripes - Seven Nation Army
+# This version at Soundcloud: https://soundcloud.com/open_horse_music/seven-nation-army
 
 tick          = 1.0
 half          = 0.5*tick
