@@ -1,7 +1,6 @@
 # theme interpretation of a "conventional" rock song
 # SonicPi version: https://soundcloud.com/open_horse_music/blackminded-rsjp-vague-sonic-pi-interpretation-v2
 
-cis3    = 61.0
 @tick   = 1.0
 half    = 0.5*@tick
 quart   = 0.25*@tick
@@ -43,32 +42,33 @@ end
 
 define :monolithic_pattern do
   4.times do
-    [:a3, cis3, :a4, cis3].each do |note|
+    [:a3, :cs4, :a4, :cs4].each do |note|
       play note
       sleep quart
     end
   end
 
   2.times do
-    [56, cis3, 68, cis3].each do |note|
+    [:ab3, :cs4, :ab4, :cs4].each do |note|
       play note
       sleep quart
     end
   end
 
   1.times do
-    [56, cis3, 66, cis3].each do |note|
+    [:ab3, :cs4, 66, :cs4].each do |note|
       play note
       sleep quart
     end
   end
 
   1.times do
-    [56, cis3, 65, cis3].each do |note|
+    [56, :cs4, 65, :cs4].each do |note|
       play note
       sleep quart
     end
   end
+
 
   4.times do
     [57, :d3, 66, :d3].each do |note|
