@@ -1,6 +1,6 @@
 # "Löwenzahn" - variation of the theme of a favorite german TV show for kids
 
-tick = 0.8
+tick = 0.5
 half = 0.5*tick
 quart = 0.5*half
 length = 4
@@ -91,27 +91,6 @@ define :shifted_bass_pattern do
   sleep quart
 end
 
-live_loop :foundation do
-  sync :frame
-  with_fx :compressor, amp: 1.8 do
-    with_synth :fm do
-      loop do
-        2.times do
-          main_bass_pattern
-        end
-
-        2.times do
-          shifted_bass_pattern
-        end
-
-        4.times do
-          main_bass_pattern
-        end
-      end
-    end
-  end
-end
-
 define :swinging_shifted do
   with_synth :fm do
     play_chord Chord.new(:C4, :"1"), release: quart
@@ -140,9 +119,10 @@ live_loop :singing do
   sync :frame
   with_fx :compressor, amp: 0.4 do
     loop do
-      2.times { swinging }
+      2.times { swinging }
       2.times { swinging_shifted }
       4.times { swinging }
+      2.times { sleep 8*tick }
     end
   end
 end
@@ -152,42 +132,37 @@ define :dancing_tones do
   # It's the part the "right hand" would play on the piano.
   with_synth :fm do
     with_fx :compressor, amp: 4.0 do
+      sleep 3*tick
+
       play_chord Chord.new(:G4, :"1"), release: quart
       sleep quart # 0.25
 
-      play_chord Chord.new(:A4, :"1"), release: quart
+      play_chord Chord.new(:A4, :"1"), release: 0.5*quart
       sleep quart # 0.5
 
       play_chord Chord.new(:B4, :"1"), release: quart
       sleep half # 1.0
 
-      play_chord Chord.new(:B4, :"1"), release: quart
-      sleep tick + quart # 2.25
-
-      sleep half # 2.75
-      sleep half # 3.25
-
-      # 4
+      # ---
 
       play_chord Chord.new(:B4, :"1"), release: quart
-      sleep quart # 4.0
+      sleep 3*tick
+
+      sleep quart
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep quart
 
       play_chord Chord.new(:A4, :"1"), release: quart
-      sleep quart # 4.25
+      sleep quart
 
       play_chord Chord.new(:G4, :"1"), release: quart
-      sleep quart # 4.5
+      sleep quart
 
       play_chord Chord.new(:D4, :"1"), release: quart
-      sleep half # 5
+      sleep half
 
       play_chord Chord.new(:D4, :"1"), release: quart
-      sleep tick + quart # 6.25
-
-      sleep half # 6.75
-      sleep half # 7.25
-      sleep half # 7.75
-      sleep quart # 8.0
+      sleep 3.5*tick
     end
   end
 end
@@ -196,15 +171,50 @@ live_loop :dancing_tones do
   sync :frame
   with_fx :compressor, amp: 0.4 do
     loop do
-      1.times do
-        dancing_tones
-      end
-      sleep 8*tick
-      2.times do
-        dancing_tones
+      sleep 3*4*tick
+      dancing_tones
+      sleep 2*8*tick
+    end
+  end
+end
+
+define :finish do
+  with_synth :fm do
+    with_fx :distortion do
+      play_chord Chord.new(:B3, :"5"), release: 2*tick
+      sleep 2*tick
+
+      play_chord Chord.new(:F3, :"5"), release: 2*tick
+      sleep 2*tick
+
+      play_chord Chord.new(:A3, :"5"), release: 4*tick
+      sleep 4*tick
+    end
+  end
+end
+
+live_loop :foundation do
+  sync :frame
+  with_fx :compressor, amp: 1.8 do
+    with_synth :fm do
+      loop do
+        2.times do
+          main_bass_pattern
+        end
+
+        2.times do
+          shifted_bass_pattern
+        end
+
+        4.times do
+          main_bass_pattern
+        end
+
+        1.times do
+          finish
+        end
       end
     end
   end
 end
 
-# TODO: Add finish BFB -> FCF -> AEA
