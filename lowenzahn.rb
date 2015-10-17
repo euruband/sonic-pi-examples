@@ -1,9 +1,9 @@
 # "Löwenzahn" - variation of the theme of a favorite german TV show for kids
-tick   = 0.7
-half   = 0.5*tick
-quart  = 0.5*half
+tick         = 0.7
+half         = 0.5*tick
+quart        = 0.5*half
 total_length = 40
-length = 4
+length       = 4
 
 # Some notes on the structure:
 #
@@ -132,9 +132,8 @@ define :dancing_tones do
       # --- 4 ---
 
       play_chord Chord.new(:B4, :"1"), release: quart
-      sleep 2.5*tick
+      sleep 2.5*tick + quart + quart
 
-      sleep quart
       play_chord Chord.new(:B4, :"1"), release: quart
       sleep quart
 
@@ -145,12 +144,13 @@ define :dancing_tones do
       sleep quart
 
       play_chord Chord.new(:D4, :"1"), release: quart
-      sleep half
-
-      # --- 8 ---
+      sleep quart
 
       play_chord Chord.new(:D4, :"1"), release: quart
-      sleep 3.5*tick
+      sleep quart
+
+      play_chord Chord.new(:D4, :"1"), release: quart
+      sleep 3.25*tick
 
       play_chord Chord.new(:G4, :"1"), release: quart
       sleep quart # 0.25
