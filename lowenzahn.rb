@@ -1,7 +1,8 @@
 # "Löwenzahn" - variation of the theme of a favorite german TV show for kids
-tick   = 0.5
+tick   = 0.7
 half   = 0.5*tick
 quart  = 0.5*half
+total_length = 40
 length = 4
 
 # Some notes on the structure:
@@ -87,26 +88,30 @@ define :shifted_bass_pattern do
 end
 
 define :swinging_shifted do
-  with_synth :fm do
-    play_chord Chord.new(:C4, :"1"), release: quart
-    sleep half
+  with_fx :echo, delay: 0.05, decay: 0.05 do
+    with_synth :fm do
+      play_chord Chord.new(:C4, :"1"), release: quart
+      sleep half
 
-    play_chord Chord.new(:C4, :"1"), release: quart
-    sleep half
+      play_chord Chord.new(:C4, :"1"), release: quart
+      sleep half
 
-    sleep 3*tick
+      sleep 3*tick
+    end
   end
 end
 
 define :swinging do
-  with_synth :fm do
-    play_chord Chord.new(:G4, :"1"), release: quart
-    sleep half
+  with_fx :echo, delay: 0.05, decay: 0.05 do
+    with_synth :fm do
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep half
 
-    play_chord Chord.new(:G4, :"1"), release: quart
-    sleep half
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep half
 
-    sleep 3*tick
+      sleep 3*tick
+    end
   end
 end
 
@@ -245,12 +250,16 @@ end
 define :bass_finish do
   with_synth :fm do
     with_fx :compressor, amp: 0.25 do
-      with_fx :distortion, distort: 0.5 do
-        play_chord Chord.new(:B3, :"5"), release: 2*tick
-        sleep 2*tick
+      with_fx :distortion, distort: 0.3 do
+        4.times do
+          play_chord Chord.new(:B3, :"5"), release: half
+          sleep half
+        end
 
-        play_chord Chord.new(:F3, :"5"), release: 2*tick
-        sleep 2*tick
+        4.times do
+          play_chord Chord.new(:F3, :"5"), release: half
+          sleep half
+        end
 
         play_chord Chord.new(:A3, :"5"), release: 4*tick
         sleep 4*tick
@@ -286,8 +295,8 @@ live_loop :singing do
     loop do
       2.times { swinging }
       2.times { swinging_shifted }
-      4.times { swinging }
-      2.times { sleep 8*tick }
+
+      sleep (total_length-16)*tick
     end
   end
 end
@@ -326,4 +335,3 @@ live_loop :foundation do
     end
   end
 end
-
