@@ -1,9 +1,17 @@
 # "Löwenzahn" - variation of the theme of a favorite german TV show for kids
-
-tick = 0.5
-half = 0.5*tick
-quart = 0.5*half
+tick   = 0.5
+half   = 0.5*tick
+quart  = 0.5*half
 length = 4
+
+# Some notes on the structure:
+#
+# First, we define all patterns.
+# They are invoked below, each
+# in a single "thread" (≡ live_loop)
+#
+# The live_loops created were synced to
+# *one* single "frame", which is a live_loop, too
 
 define :tusch do
   length.to_i.times.each_with_index do |_, i|
@@ -23,19 +31,6 @@ define :beat do
     sample :drum_cymbal_closed, amp: 0.25
     sleep half
     sample :bd_haus, amp: 0.3
-  end
-end
-
-live_loop :frame do
-  loop do
-    tusch
-  end
-end
-
-live_loop :beat_it do
-  sync :frame
-  loop do
-    beat
   end
 end
 
@@ -115,21 +110,7 @@ define :swinging do
   end
 end
 
-live_loop :singing do
-  sync :frame
-  with_fx :compressor, amp: 0.4 do
-    loop do
-      2.times { swinging }
-      2.times { swinging_shifted }
-      4.times { swinging }
-      2.times { sleep 8*tick }
-    end
-  end
-end
-
 define :dancing_tones do
-  # This part is not correct yet. Let's say, its a start.. :)
-  # It's the part the "right hand" would play on the piano.
   with_synth :fm do
     with_fx :compressor, amp: 4.0 do
       sleep 3*tick
@@ -143,10 +124,10 @@ define :dancing_tones do
       play_chord Chord.new(:B4, :"1"), release: quart
       sleep half # 1.0
 
-      # ---
+      # --- 4 ---
 
       play_chord Chord.new(:B4, :"1"), release: quart
-      sleep 3*tick
+      sleep 2.5*tick
 
       sleep quart
       play_chord Chord.new(:B4, :"1"), release: quart
@@ -161,8 +142,152 @@ define :dancing_tones do
       play_chord Chord.new(:D4, :"1"), release: quart
       sleep half
 
+      # --- 8 ---
+
       play_chord Chord.new(:D4, :"1"), release: quart
       sleep 3.5*tick
+
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep quart # 0.25
+
+      play_chord Chord.new(:A4, :"1"), release: 0.5*quart
+      sleep quart # 0.5
+
+      # --- 12 ---
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:A4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:D4, :"1"), release: quart
+      sleep tick + half + quart
+
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep quart # 0.25
+
+      play_chord Chord.new(:A4, :"1"), release: 0.5*quart
+      sleep quart # 0.5
+
+      # --- 16 ---
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:A4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:D5, :"1"), release: quart
+      sleep tick + half + quart
+
+      play_chord Chord.new(:D5, :"1"), release: quart
+      sleep quart # 0.25
+
+      play_chord Chord.new(:E5, :"1"), release: 0.5*quart
+      sleep quart # 0.5
+
+      # --- 20 ---
+
+      play_chord Chord.new(:F5, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:F5, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:F5, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:E5, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:D5, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:C5, :"1"), release: quart
+      sleep half
+
+      play_chord Chord.new(:C5, :"1"), release: quart
+      sleep half + quart
+      play_chord Chord.new(:G4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:A4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:B4, :"1"), release: quart
+      sleep quart
+
+      play_chord Chord.new(:A4, :"1"), release: quart
+      sleep quart + 4*tick
+    end
+  end
+end
+
+define :bass_finish do
+  with_synth :fm do
+    with_fx :compressor, amp: 0.25 do
+      with_fx :distortion, distort: 0.5 do
+        play_chord Chord.new(:B3, :"5"), release: 2*tick
+        sleep 2*tick
+
+        play_chord Chord.new(:F3, :"5"), release: 2*tick
+        sleep 2*tick
+
+        play_chord Chord.new(:A3, :"5"), release: 4*tick
+        sleep 4*tick
+      end
+    end
+  end
+end
+
+# All previous definitions were
+# invoked now
+
+
+# The live_loop below ("frame"(
+# is the thread every other pattern
+# is synced to
+
+live_loop :frame do
+  loop do
+    tusch
+  end
+end
+
+live_loop :beat_it do
+  sync :frame
+  loop do
+    beat
+  end
+end
+
+live_loop :singing do
+  sync :frame
+  with_fx :compressor, amp: 0.4 do
+    loop do
+      2.times { swinging }
+      2.times { swinging_shifted }
+      4.times { swinging }
+      2.times { sleep 8*tick }
     end
   end
 end
@@ -173,22 +298,6 @@ live_loop :dancing_tones do
     loop do
       sleep 3*4*tick
       dancing_tones
-      sleep 2*8*tick
-    end
-  end
-end
-
-define :finish do
-  with_synth :fm do
-    with_fx :distortion do
-      play_chord Chord.new(:B3, :"5"), release: 2*tick
-      sleep 2*tick
-
-      play_chord Chord.new(:F3, :"5"), release: 2*tick
-      sleep 2*tick
-
-      play_chord Chord.new(:A3, :"5"), release: 4*tick
-      sleep 4*tick
     end
   end
 end
@@ -211,7 +320,7 @@ live_loop :foundation do
         end
 
         1.times do
-          finish
+          bass_finish
         end
       end
     end
