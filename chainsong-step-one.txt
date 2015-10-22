@@ -1,0 +1,26 @@
+
+live_loop :piano do
+sample :ambi_piano, rate: [0.5, 0.7, 0.9].choose
+sleep 2
+end
+
+#play ^for two chords, then add beat1 (a.k.a. remove the '#')
+
+live_loop :beat1 do 
+#sample :bd_haus, rate: 0.9, cutoff: rrand(40, 90), amp: 0.7
+sleep 0.5
+end
+
+#play for a bit, then add beat2
+
+live_loop :beat2 do 
+#sample [:bd_ada, :bd_tek].choose, amp: 0.5
+sleep [0.75, 1].choose 
+end 
+
+#last but not least add choir 
+
+live_loop :choir do
+#sample :ambi_choir, rate: [-1,0.4,-0.5].choose, cutoff: 70, amp: 0.4
+sleep 3
+end
