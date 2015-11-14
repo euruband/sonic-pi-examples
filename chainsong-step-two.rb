@@ -2,10 +2,20 @@
 # change file path to correspond with where you save it on your computer
 
 # first, play the track - leave to play throughout whole piece.
-sample "/Users/tam/code/euruband/external_tracks/hail.wav"
+relative_path = case ENV['USER']
+                when 'tam'
+                  then 'tam/code/euruband'
+                when 'robin'
+                  then 'robin/private_projects/sonic-pi-examples'
+                when 'annika'
+                  then 'hey/annika/place/your/path/here'
+                end
+
+
+sample "/Users/#{relative_path}/external_tracks/hail.wav"
+
 
 # add the piano after a few seconds
-
 live_loop :piano do
   #sample :ambi_piano, rate: [0.5, 0.7, 0.9].choose
   sleep 2
@@ -46,6 +56,3 @@ live_loop :chords do
   #play chord(:E3, :minor), release: 4
   sleep 4
 end
-
-
-
