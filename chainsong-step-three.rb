@@ -15,7 +15,7 @@ sample "/Users/#{relative_path}/external_tracks/hail.wav"
 
 # add the piano after a few seconds
 live_loop :piano do
-  #sample :ambi_piano, rate: [0.5, 0.7, 0.9].choose
+  sample :ambi_piano, rate: [0.5, 0.7, 0.9].choose
   sleep 2
 end
 
@@ -29,7 +29,7 @@ end
 #play for a bit, then add beat2
 
 live_loop :beat2 do
-  #sample [:bd_ada, :bd_tek].choose, amp: 0.5
+  sample [:bd_ada, :bd_tek].choose, amp: 0.5
   sleep [0.75, 1].choose
 end
 
@@ -69,11 +69,11 @@ define :chords do
 end
 
 define :running_chords do
-  [6, 8, 10, 12, 14].each do |amp|
+  [6, 8, 12].each do |amp|
     with_fx :compressor, amp: amp.to_f / 10.0 do
       with_synth :fm do
         4.times do
-          play chord(:E2, "5"), release: 0.3
+          play chord(:F2, "5"), release: 0.3
           sleep 0.25
         end
         2.times do
@@ -92,9 +92,9 @@ end
 define :whipping_chords do
   with_synth :sine do
     with_fx :compressor, amp: 0.85 do
-      play chord(:E3, :m), release: 0.25
+      play chord(:F3, :m), release: 0.25
       sleep 0.25
-      play chord(:E3, :minor), release: 0.25
+      play chord(:F3, :minor), release: 0.25
       sleep 0.5
 
       play chord(:C4, :m7), release: 0.25
