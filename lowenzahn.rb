@@ -26,7 +26,7 @@ define :tusch do
   end
 end
 
-define :beat do
+define :beatx do
   length.to_i.times.each_with_index do |_, i|
     sleep half
     sample :drum_cymbal_closed, amp: 0.25
@@ -285,7 +285,7 @@ end
 live_loop :beat_it do
   sync :frame
   loop do
-    beat
+    beatx
   end
 end
 
