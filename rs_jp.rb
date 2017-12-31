@@ -1,10 +1,10 @@
 # theme interpretation of a "conventional" rock song
 # SonicPi version: https://soundcloud.com/open_horse_music/blackminded-rsjp-vague-sonic-pi-interpretation-v2
 
-@tick   = 1.0
-half    = 0.5*@tick
-quart   = 0.25*@tick
-@length = 32*@tick
+tick   = 1.0
+half   = 0.5*tick
+quart  = 0.25*tick
+length = 32*tick
 
 in_thread(name: :frame) do
   cue :frame
@@ -15,21 +15,21 @@ end
 
 in_thread(name: :letsgetloud) do
   sync :frame
-  sleep @length
+  sleep length
   loop do
     drums_please_get_loud
   end
 end
 
 define :permanent_drumset do
-  @length.to_i.times.each_with_index do |_, i|
+  length.to_i.times.each_with_index do |_, i|
     sample :drum_cymbal_closed
-    sleep @tick
+    sleep tick
   end
 end
 
 define :drums_please_get_loud do
-  @length.to_i.times.each_with_index do |_, i|
+  length.to_i.times.each_with_index do |_, i|
     with_fx :level, amp: 2.0 do
       sample :drum_bass_hard
       sleep half
@@ -96,9 +96,9 @@ end
 
 in_thread(name: :groll) do
   sync :frame
-  sleep 16*@tick
+  sleep 16*tick
   loop do
-    sleep 12*@tick
+    sleep 12*tick
     with_fx :level, amp: 2.0 do
       with_synth(:fm) do
         with_fx(:distortion) do
@@ -123,7 +123,7 @@ end
 
 in_thread(name: :screaming_git) do
   sync :frame
-  sleep 48*@tick
+  sleep 48*tick
   loop do
     with_fx :level, amp: 0.4 do
       with_synth(:pulse) do
@@ -137,7 +137,7 @@ end
 
 in_thread(name: :supportive) do
   sync :frame
-  sleep 16*@tick
+  sleep 16*tick
   loop do
     with_synth(:fm) do
       monolithic_pattern
@@ -147,7 +147,7 @@ end
 
 in_thread(name: :supportive_dist) do
   sync :frame
-  sleep 64*@tick
+  sleep 64*tick
   loop do
     with_synth(:fm) do
       with_fx(:distortion) do
