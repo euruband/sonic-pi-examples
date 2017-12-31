@@ -271,17 +271,6 @@ end
 # All previous definitions were
 # invoked now
 
-
-# The live_loop below ("frame"(
-# is the thread every other pattern
-# is synced to
-
-live_loop :frame do
-  loop do
-    tusch
-  end
-end
-
 live_loop :beat_it do
   sync :frame
   loop do
@@ -333,5 +322,16 @@ live_loop :foundation do
         end
       end
     end
+  end
+end
+
+# The live_loop below ("frame")
+# is the thread every other pattern
+# is synced to
+
+live_loop :frame do
+  cue :frame
+  loop do
+    tusch
   end
 end
