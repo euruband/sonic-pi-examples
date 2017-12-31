@@ -6,13 +6,6 @@ half   = 0.5*tick
 quart  = 0.25*tick
 length = 32*tick
 
-in_thread(name: :frame) do
-  cue :frame
-  loop do
-    permanent_drumset
-  end
-end
-
 in_thread(name: :letsgetloud) do
   sync :frame
   sleep length
@@ -154,5 +147,12 @@ in_thread(name: :supportive_dist) do
         monolithic_pattern
       end
     end
+  end
+end
+
+in_thread(name: :frame) do
+  cue :frame
+  loop do
+    permanent_drumset
   end
 end
